@@ -40,6 +40,7 @@ define([
         '../../geom/Position',
         '../../pick/PickedObject',
         '../../render/Renderable',
+        '../../shapes/RayIntersectable',
         '../../geom/Vec3',
         '../../util/WWMath'
     ],
@@ -53,6 +54,7 @@ define([
               Position,
               PickedObject,
               Renderable,
+              RayIntersectable,
               Vec3,
               WWMath) {
         "use strict";
@@ -73,7 +75,9 @@ define([
                     Logger.logMessage(Logger.LEVEL_SEVERE, "ColladaScene", "constructor", "missingPosition"));
             }
 
+            // Call Renderable constructor and apply RayIntersectable mixin
             Renderable.call(this);
+            RayIntersectable.call(this);
             this.resetCurrentData();
             // Documented in defineProperties below.
             this._position = position;
@@ -675,6 +679,12 @@ define([
             if (!results) {
                 throw new ArgumentError(Logger.logMessage(Logger.LEVEL_SEVERE, "ColladaScene",
                     "computePointIntersections", "missingResults"));
+            }
+
+            // Use RayIntersectable's functionality to handle coordinate transforms
+            var intersection = this.computeIntersection(dc, pointRay);
+            if (!intersection) {
+                return false;
             }
 
             var eyePoint = pointRay.origin;
