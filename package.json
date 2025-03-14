@@ -35,7 +35,7 @@
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-requirejs": "^1.0.0",
-    "grunt-jsdoc": "^2.4.1",
+    "grunt-jsdoc": "^0.4.0",
     "grunt-karma": "^4.0.0",
     "grunt-zip": "^0.14.0",
     "jasmine-core": "^3.6.0",
@@ -71,5 +71,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "help": "^3.0.2"
   }
 }
